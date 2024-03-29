@@ -1,4 +1,4 @@
-//! This example toggles RP Pico/W GPIO  pin 0--connect a resistor and LED and it will blink..
+//! This example toggles RP Pico/W GPIO  pin 0--connect a resistor and LED and it will blink.
 
 #![no_std]
 #![no_main]
@@ -15,14 +15,17 @@ async fn main(_spawner: Spawner) {
     let p = embassy_rp::init(Default::default());
 
     // Configure GPIO pin 0 as an output
-
-    // Light up the LED
-
-    // Wait for 1 second
-
-    // Turn off the LED
-
-    // Wait for 1 second
+    let mut led = Output::new(p.PIN_0, Level::Low);
 
     // Loop forever
+    loop {
+        // Light up the LED
+        led.set_high();
+        // Wait for 1 second
+        Timer::after_secs(4).await;
+        // Turn off the LED
+        led.set_low();
+        // Wait for 1 second
+        Timer::after_secs(3).await;
+    }
 }
